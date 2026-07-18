@@ -8,21 +8,37 @@ rules:
   resources: ["pods"] # nouns
   verbs: ["get", "watch", "list",]
 --- 
-# apiVersion: rbac.authorization.k8s.io/v1
-# kind: Role
-# metadata:
-#   namespace: roboshop
-#   name: roboshop-junior
-# rules:
-# - apiGroups: [""] # "" indicates the core API group
-#   resources: ["pods"] # nouns
-#   verbs: ["get", "watch", "list","create"]
-# - apiGroups: ["apps"]
-#   # at the HTTP level, the name of the resource for accessing Deployment
-#   # objects is "deployments"
-#   resources: ["deployments"]
-#   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-# ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: roboshop
+  name: roboshop-junior
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"] # nouns
+  verbs: ["get", "watch", "list","create"]
+- apiGroups: ["apps"]
+  # at the HTTP level, the name of the resource for accessing Deployment
+  # objects is "deployments"
+  resources: ["deployments"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: roboshop-junior
+  namespace: roboshop
+subjects:
+- kind: User
+  name: suresh
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: roboshop-junior
+  apiGroup: rbac.authorization.k8s.io
+
+---
 # apiVersion: rbac.authorization.k8s.io/v1
 # kind: Role
 # metadata:
@@ -89,3 +105,4 @@ roleRef:
   kind: Role
   name: roboshop-trainee
   apiGroup: rbac.authorization.k8s.io
+

@@ -51,5 +51,38 @@ this add to aws-auth.yaml
 edit aws auth configmap take map users and copy to aws-auth.yaml 
 edit yhat file we add mapusers olny and remove system master and add roboshop tarinee 
 and add suresh user arn 
+aws-auth.yaml apply atfter check this 
+
+kubectl get configmap aws-auth -n kube-system -o yaml
+* install kubectl in suresh server 
+* chmod +x kubectl
+* sudo cp kubectl /usr/local/bin/kubectl
+* aws eks update-kubeconfig --region us-east-1 --name roboshop
+ it downloads the EKS cluster information from AWS and creates/updates the Kubernetes configuration file (~/.kube/config).
+
+ It stores:
+
+Cluster endpoint (API server URL)
+Cluster certificate
+Cluster name
+Authentication method
+
+Without this file, kubectl doesn't know:
+
+Which cluster to connect to.
+How to authenticate.
+Where the Kubernetes API server is.
+
+when you run kubectl 
+Before connecting to Kubernetes, run the AWS CLI to generate an authentication token."
+
+* aws sts get-caller-identity 
+
+* user suresh now autenticate with clsuter robshop 
+cat /home/ec2-user/.kube/config
+
+here we obsreve when we send kubectl then check token clsuer name doing authentiaction 
 
 now user add to eks system 
+
+
